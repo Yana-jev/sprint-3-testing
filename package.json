@@ -2,7 +2,7 @@
   "name": "itacademy-sprint4",
   "version": "1.0.0",
   "license": "UNLICENSED",
-  "type": "module",
+  "type": "module", 
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll --verbose=false"
