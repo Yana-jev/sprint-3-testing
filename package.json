@@ -2,13 +2,13 @@
   "name": "itacademy-sprint4",
   "version": "1.0.0",
   "license": "UNLICENSED",
-  "type": "module", 
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watchAll --verbose=false"
   },
   "devDependencies": {
-    "jest": "^29.2.2",
+    "jest": "^29.7.0",
     "jest-html-reporter": "^3.7.0",
     "jest-junit": "^14.0.1"
   },

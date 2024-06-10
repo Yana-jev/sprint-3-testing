@@ -293,8 +293,27 @@ describe('Function "orderByYear"', () => {
 // Exercise 6
 // YOUR CODE HERE. Test moviesAverageByCategory()
 describe('Function "moviesAverageByCategory"', () => {
-  it('ADD YOUR CODE IN films.spec.js file', () => {
-    expect(typeof hoursToMinutes).toBe('coffee');
+  it('should be declaired', () => {
+    expect(typeof hoursToMinutes).toBe('function');
+  });
+
+  it('shouldd return a number', ()=>{
+    expect(typeof moviesAverageByCategory(movies, 'Drama')).toBe('number')
+  })
+  it('should return the correct average rating for Drama', () => {
+    expect(averageRatingByGenre(movies, 'Drama')).toBe(7.5);
+  });
+  it('should return the correct average rating for War', () => {
+    expect(averageRatingByGenre(movies, 'War')).toBe(6.5);
+  });
+  it('should return the correct average rating for Action', () => {
+    expect(averageRatingByGenre(movies, 'Action')).toBe(6.5);
+  });
+  it('should return the correct average rating for Crime', () => {
+    expect(averageRatingByGenre(movies, 'Crime')).toBe(6.5);
+  });
+  it('should return NaN if there are no movies of the specified genre', () => {
+    expect(averageRatingByGenre(movies, 'Horror')).toBeNaN();
   });
 });
 

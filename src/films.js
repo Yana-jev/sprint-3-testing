@@ -10,27 +10,22 @@ getAllDirectors(movies)
 
 
 // Exercise 2: Get the films of a certain director
-function getMoviesFromDirector(array, director) {
-  var result = array.filter( el => el.director === director)
-  .map(el => el.title)
-  return console.log(result)
+function getMoviesFromDirector(movies, director) {
+  return movies.filter(movie => movie.director === director);
 }
-getMoviesFromDirector(movies,'Milos Forman')
+
 
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
-  let scores = array
-    .filter(el => el.director === director)
-    .map(el => el.score);
-
-  if (scores.length === 0) {
-    console.log(`No movies found for director: ${director}`);
-    return;
+  let directorMovies = array.filter(el => el.director === director);
+  if (directorMovies.length === 0){
+    return NaN
   }
+const scoreTotal = directorMovies.reduce((acc, movie) => acc + (movie.score || 0), 0); 
+const averageScore = scoreTotal/directorMovies.length
 
-  let averageScore = scores.reduce((acc, score) => acc + score, 0) / scores.length;
-  console.log(averageScore);
+return parseFloat(averageScore.toFixed(2))
 }
 
 moviesAverageOfDirector(movies, 'Francis Ford Coppola');
@@ -38,15 +33,8 @@ moviesAverageOfDirector(movies, 'Francis Ford Coppola');
 // Exercise 4:  Alphabetic order by title 
 function orderAlphabetically(array) {
   const movieAbc = array.map(name => name.title)
-  .sort((a,b) => {
-    if (a.toLowerCase() < b.toLowerCase()){
-        return -1
-    } if (a.toLowerCase()>b.toLowerCase()){
-        return 1
-    } else {return 0}
-  })
-  const movies20 = movieAbc.slice(0, 20)
-  console.log(movies20)
+  movieAbc.sort().slice(0, 20);
+  return movieAbc.slice(0,20)
 }
 orderAlphabetically(movies)
 
@@ -60,24 +48,61 @@ function orderByYear(arr) {
     return a.year - b.year;
   });
 }
+
+
+
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(movies, genre) {
-  const filteredMovies = movies.filter(movie => movie.genre === genre);
+
+  const filteredMovies = movies.filter(movie => movie.genre.includes(genre));
   if (filteredMovies.length === 0) return NaN;
 
-  const totalRating = filteredMovies.reduce((sum, movie) => sum + movie.rating, 0);
-  return totalRating / filteredMovies.length;
+  const totalScore = filteredMovies.reduce((acc, movie) => acc + (movie.score || 0), 0);
+  const averageScore = totalScore / filteredMovies.length;
+
+  return parseFloat(averageScore.toFixed(2));
 }
+
+
+
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
 
+function hoursToMinutes(arr) {
+  return arr.map(film => {
+    const durationArray = film.duration.split(' ');
+    let totalMinutes = 0;
+    for (const part of durationArray) {
+      if (part.includes('h')) {
+        totalMinutes += parseInt(part) * 60;
+      } else if (part.includes('min')) {
+        totalMinutes += parseInt(part);
+      }
+    }
+    return { ...film, duration: totalMinutes };
+  });
 }
+  console.log(hoursToMinutes(movies))
+
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
-  
+function bestFilmOfYear(arr, year) {
+  const bestFilms = arr.filter(film => film.year === year);
+
+  if (bestFilms.length === 0) {
+    return null;
+  }
+
+  const bestScore = bestFilms.reduce((a, b) => {
+    return a.score > b.score ? a : b;
+  });
+
+  return bestScore;
 }
+
+
+bestFilmOfYear(movies, 1946);
+console.log(bestFilmOfYear(movies, 1946))
 
 
 
