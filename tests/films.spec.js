@@ -300,22 +300,43 @@ describe('Function "moviesAverageByCategory"', () => {
   it('shouldd return a number', ()=>{
     expect(typeof moviesAverageByCategory(movies, 'Drama')).toBe('number')
   })
-  it('should return the correct average rating for Drama', () => {
-    expect(averageRatingByGenre(movies, 'Drama')).toBe(7.5);
+  it(' should return the average score of 2 movies by genre. With 2 decimals! ', () => {
+    expect(moviesAverageByCategory([
+      {
+        genre: ['Drama', 'War'],
+        score: 8.4
+      },
+      {
+        genre: ['Drama', 'Western'],
+        score: 8.4
+      },
+      {
+        genre: ['Crime', 'Drama'],
+        score: 8.9
+      }
+    ], 'Drama')).toBe(8.57);
   });
-  it('should return the correct average rating for War', () => {
-    expect(averageRatingByGenre(movies, 'War')).toBe(6.5);
+
+  it('should not take into consideration films of other category', () => {
+    expect(moviesAverageByCategory([
+      {
+        score: 5,
+        genre: ['Drama'],
+      },
+      {
+        score: 10,
+        genre: ['Action'],
+      },
+      {
+        score: 10,
+        genre: ['Action'],
+      }
+    ],
+      'Action')).toBe(10);
   });
-  it('should return the correct average rating for Action', () => {
-    expect(averageRatingByGenre(movies, 'Action')).toBe(6.5);
-  });
-  it('should return the correct average rating for Crime', () => {
-    expect(averageRatingByGenre(movies, 'Crime')).toBe(6.5);
-  });
-  it('should return NaN if there are no movies of the specified genre', () => {
-    expect(averageRatingByGenre(movies, 'Horror')).toBeNaN();
-  });
+
 });
+
 
 // Exercise 7
 describe('Function "hoursToMinutes"', () => {

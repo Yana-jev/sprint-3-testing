@@ -53,15 +53,20 @@ function orderByYear(arr) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(movies, genre) {
+const filteredMovies = movies.filter(movie => movie.genre.includes(genre));
 
-  const filteredMovies = movies.filter(movie => movie.genre.includes(genre));
-  if (filteredMovies.length === 0) return NaN;
 
-  const totalScore = filteredMovies.reduce((acc, movie) => acc + (movie.score || 0), 0);
-  const averageScore = totalScore / filteredMovies.length;
-
-  return parseFloat(averageScore.toFixed(2));
+    const totalScore = filteredMovies.reduce((acc, movie) => acc + movie.score, 0);
+    const averageScore = totalScore / filteredMovies.length;
+    return parseFloat(averageScore.toFixed(2));
 }
+
+console.log(moviesAverageByCategory(movies, 'Drama')); 
+console.log(moviesAverageByCategory(movies, 'Action')); 
+console.log(moviesAverageByCategory(movies, 'Crime')); 
+console.log(moviesAverageByCategory(movies, 'Biography')); 
+console.log(moviesAverageByCategory(movies, 'Horror')); 
+
 
 
 
@@ -85,6 +90,8 @@ function hoursToMinutes(arr) {
   console.log(hoursToMinutes(movies))
 
 
+
+
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear(arr, year) {
   const bestFilms = arr.filter(film => film.year === year);
@@ -97,11 +104,10 @@ function bestFilmOfYear(arr, year) {
     return a.score > b.score ? a : b;
   });
 
-  return bestScore;
+  return [bestScore]
 }
 
 
-bestFilmOfYear(movies, 1946);
 console.log(bestFilmOfYear(movies, 1946))
 
 
